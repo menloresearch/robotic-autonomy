@@ -5,7 +5,7 @@ description: Describes the structure of the robotic-autonomy repo — its topic 
 
 # Robotic Autonomy — Repo Structure
 
-This repo is a research initiative for building, evaluating, and deploying autonomous robot systems. It has **two top-level objectives** (Evals and Agent Harness), each reflected in the folder layout below.
+This repo is a research initiative for building, evaluating, and deploying autonomous robot systems.
 
 ---
 
@@ -13,61 +13,18 @@ This repo is a research initiative for building, evaluating, and deploying auton
 
 ```
 robotic-autonomy/
-├── README.md                  # Project overview, objectives, current work
-├── evals/                     # Objective 1 — evaluation pipeline
-├── agent-harness/             # Objective 2 — agent harness (single robot + fleet)
-├── humanoid-safety/           # Sub-project: humanoid safety benchmark (MuJoCo)
-├── agent-bench/               # Sub-project: agent-bench skill-as-bench framework
-├── research/                  # Background reading, paper notes, references
-└── .pi/skills/repo-structure/ # This skill
+├── README.md                    # Project overview, objectives, current work
+├── INTERESTING_WORK_NOTE.md     # Scratchpad for random research papers & links
+├── agents/                      # Sub-project: agent-bench skill-as-bench framework
+├── safety/                      # Sub-project: humanoid safety benchmark (MuJoCo)
+└── .pi/skills/repo-structure/   # This skill
 ```
 
 ---
 
 ## Folder Details
 
-### `evals/`
-**Topic:** Continuous evaluation pipeline — runs on every policy change, monitors live robots.
-
-Covers:
-- Physical safety (HIC₁₅, Nij, ISO/TS 15066 contact force limits)
-- Precision & dexterity (object manipulation, insertion tasks)
-- Robustness & generalization (new environments, new objects)
-- Operational reliability (long-shift endurance, failure recovery)
-- Cognitive safety (LLM/VLA planner refusals, uncertainty handling)
-
-Work logs go here as date-named files.
-
----
-
-### `agent-harness/`
-**Topic:** Skill-based agent composition for single robots and fleet-scale deployment.
-
-Covers:
-- Skill-based behavior composition (`SKILL.md` + code pattern)
-- Foundation model integration (VLA: RT-2, Octo, π₀; LLM planners; world models)
-- Full trace replay (perception → reasoning → action)
-- Fleet: task decomposition, allocation, shared world model, conflict resolution
-- Heterogeneous fleet coordination (arms, humanoids, wheeled, drones)
-
-Work logs go here as date-named files.
-
----
-
-### `humanoid-safety/`
-**Topic:** Physics simulation (MuJoCo) stress-testing humanoid robots.
-
-Covers work on the [`humanoid-safety-benchmark`](https://github.com/menloresearch/humanoid-safety-benchmark):
-- Scenario design (falls, trips, power loss, punches, kicks, body slams)
-- Injury metric implementation and tuning (HIC₁₅, Nij, ISO/TS 15066)
-- ONNX locomotion policy loading and comparison vs. passive ragdoll
-- Findings and regressions (e.g. Nij 0.85 in forward-fall scenarios)
-
-Work logs go here as date-named files.
-
----
-
-### `agent-bench/`
+### `agents/`
 **Topic:** Benchmark-as-skill framework for testing robot agent loops.
 
 Covers work on [`agent-bench`](https://github.com/menloresearch/agent-bench):
@@ -80,15 +37,25 @@ Work logs go here as date-named files.
 
 ---
 
-### `research/`
-**Topic:** Background reading, paper summaries, and reference material.
+### `safety/`
+**Topic:** Physics simulation (MuJoCo) stress-testing humanoid robots.
 
-Not tied to a single sub-project. Use it for:
-- Paper notes (title + date in filename is fine, e.g. `rt2-notes-08042026.md`)
-- Literature surveys
-- Links and bookmarks worth preserving in the repo
+Covers work on the [`humanoid-safety-benchmark`](https://github.com/menloresearch/humanoid-safety-benchmark):
+- Scenario design (falls, trips, power loss, punches, kicks, body slams)
+- Injury metric implementation and tuning (HIC₁₅, Nij, ISO/TS 15066)
+- ONNX locomotion policy loading and comparison vs. passive ragdoll
+- Findings and regressions (e.g. Nij 0.85 in forward-fall scenarios)
 
-Work logs / reading logs go here as date-named files.
+Work logs go here as date-named files.
+
+---
+
+### `INTERESTING_WORK_NOTE.md`
+**Topic:** Informal scratchpad for research papers, links, and ideas thrown in on the fly.
+
+- Lives at the repo root (not a folder)
+- No strict format — drop a title, link, and a one-liner on why it's interesting
+- See the file itself for the running list
 
 ---
 
