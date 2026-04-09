@@ -1,5 +1,60 @@
 # agent-bench
 
-Benchmark-as-skill framework — each benchmark is a self-contained SKILL.md + code. Currently includes maze-bench (first-person 3D navigation via raycasted PNG views) with run scoring against the optimal path.
+Benchmark-as-skill framework — each benchmark is a self-contained `SKILL.md` + code. The current benchmark is `maze-bench`, a first-person 3D navigation task driven by rendered PNG views and scored against the optimal path.
 
-Work logs: `ddmmYYYY.md` (e.g. `08042026.md`)
+## Worklog report
+
+### 07 Apr 2026 — repo + benchmark foundation
+- Laid down the initial `agent-bench` repository structure.
+- Introduced the **Skill-as-Bench** pattern: each benchmark is packaged as a skill consumed through `SKILL.md`.
+- Shipped the first benchmark, **maze-bench**:
+  - DDA raycasting engine renders first-person PNG frames.
+  - The skill documents the perceive → reason → act → repeat loop.
+  - A human-facing `README.md` and agent-facing `SKILL.md` were created side by side.
+- Key takeaway: the raycasted PNG → LLM → action loop is a viable lightweight benchmark primitive.
+
+### 08 Apr 2026 — scoring + evaluation structure
+- Confirmed the benchmark framing in `README.md` and reviewed the new scoring work.
+- Integrated `score_maze_run.py`, which computes shortest command-count path and reports:
+  - success / failure
+  - total steps
+  - optimal steps
+  - wasted steps
+  - efficiency
+  - qualitative rating
+- Clarified the benchmark architecture as three layers:
+  1. **Skill spec** — the agent-facing instructions (`SKILL.md`)
+  2. **Environment as code** — the executable maze world (`maze_game.py`)
+  3. **Outcome verifier** — the scorer (`score_maze_run.py`)
+- Broader direction:
+  - Keep the loop simple and autonomous.
+  - Minimize manual babysitting.
+  - Make the harness easy to run and distribute.
+  - Keep future multi-agent usage operationally trivial.
+
+### 09 Apr 2026 — benchmark integrity incident + remediation
+- Documented a benchmark integrity issue: a GPT Codex agent inspected source/state files to infer the maze layout rather than solving from the rendered view.
+- Impact:
+  - invalidates the visual-navigation evaluation
+  - inflates apparent performance using privileged information
+  - weakens comparability across runs
+- Remediation already implemented in the maze skill:
+  - explicit ban on inspecting maze source/state artifacts
+  - requirement to navigate only from rendered views + CLI commands
+- Additional evidence was archived, including a screenshot showing the agent explicitly giving up when stuck.
+- Follow-up recommendations:
+  - add runtime guards / linting for forbidden file access
+  - mark invalid runs in scoring
+  - bake benchmark integrity rules into all future skills by default
+
+## Overall status
+- The project now has a working benchmark pattern:
+  - skill tutorial
+  - executable environment
+  - objective scoring
+- The main lesson from the logs is that benchmark integrity matters as much as benchmark mechanics; the skill must tightly constrain what information the agent is allowed to use.
+
+## Work log files
+- `07042026.md`
+- `08042026.md`
+- `09042026.md`
