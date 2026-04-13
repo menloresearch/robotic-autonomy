@@ -48,17 +48,16 @@ Benchmark-as-skill framework — each benchmark is a self-contained `SKILL.md` +
   - bake benchmark integrity rules into all future skills by default
 
 ### 13 Apr 2026 — Pi + OpenRouter model sweep (GLM 5.1, Kimi K2.5) + human play mode
-- Reconfigured the Pi coding agent to route through **OpenRouter** instead of the local vLLM server; added `z-ai/glm-5.1` and `moonshotai/kimi-k2.5-0127` to `~/.pi/agent/models.json`.
-- Ran `maze-bench` against both models via the Pi harness:
+- I reconfigured the Pi coding agent to route through **OpenRouter** instead of the local vLLM server; added `z-ai/glm-5.1` and `moonshotai/kimi-k2.5-0127` to `~/.pi/agent/models.json`.
+- I ran `maze-bench` against both models via the Pi harness:
   - **GLM 5.1** — 548 steps, 4 resets, ended 60 steps from the exit. Failed (-49.2%), but the strongest non-Anthropic run so far.
   - **Kimi K2.5** — crashed mid-run at 37 steps (-99.2%). No stderr captured.
-- Reworked `visualize_maze_bench.py` for the leaderboard chart:
-  - Per-model brand-colored bars (Anthropic / OpenAI / Google / Moonshot / Z.ai).
-  - Model logo + model/agent name stacked below each column.
-  - Integer efficiency label rendered inside each bar.
-- Added a manual **human play mode** to `maze-bench` in `agent-bench` (latest personal commit: `e60ffbf`, authored as **User**):
-  - new interactive runner at `benchmarks/maze-bench/skills/maze-game/human_play.py`
-  - benchmark docs updated so humans can test the maze directly, sanity-check difficulty, and compare human vs agent traces
+- In `agent-bench`, my authored commit today was **`e60ffbf`** (`maze-bench: add human play mode`):
+  - added `benchmarks/maze-bench/skills/maze-game/human_play.py`
+  - updated `benchmarks/maze-bench/README.md` so humans can test the maze directly
+- Bill's account appears in git history as **`bill_cache <108576106+billcache@users.noreply.github.com>`**.
+  - Bill-authored commit today: **`df4e483`** — `Merge pull request #10 from menloresearch/feat/maze-human-play`
+  - This indicates Bill merged the PR, while the feature implementation commit itself was authored by me.
 - Chart snapshot: `agents/evidence/13042026-maze-bench-chart.png`.
 - Key takeaways:
   - Anthropic still holds the only passing runs; Opus 4.6 remains the leader at +47.7%.
