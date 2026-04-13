@@ -47,7 +47,7 @@ Benchmark-as-skill framework — each benchmark is a self-contained `SKILL.md` +
   - mark invalid runs in scoring
   - bake benchmark integrity rules into all future skills by default
 
-### 13 Apr 2026 — Pi + OpenRouter model sweep (GLM 5.1, Kimi K2.5)
+### 13 Apr 2026 — Pi + OpenRouter model sweep (GLM 5.1, Kimi K2.5) + human play mode
 - Reconfigured the Pi coding agent to route through **OpenRouter** instead of the local vLLM server; added `z-ai/glm-5.1` and `moonshotai/kimi-k2.5-0127` to `~/.pi/agent/models.json`.
 - Ran `maze-bench` against both models via the Pi harness:
   - **GLM 5.1** — 548 steps, 4 resets, ended 60 steps from the exit. Failed (-49.2%), but the strongest non-Anthropic run so far.
@@ -56,10 +56,14 @@ Benchmark-as-skill framework — each benchmark is a self-contained `SKILL.md` +
   - Per-model brand-colored bars (Anthropic / OpenAI / Google / Moonshot / Z.ai).
   - Model logo + model/agent name stacked below each column.
   - Integer efficiency label rendered inside each bar.
+- Added a manual **human play mode** to `maze-bench` in `agent-bench` (latest personal commit: `e60ffbf`, authored as **User**):
+  - new interactive runner at `benchmarks/maze-bench/skills/maze-game/human_play.py`
+  - benchmark docs updated so humans can test the maze directly, sanity-check difficulty, and compare human vs agent traces
 - Chart snapshot: `agents/evidence/13042026-maze-bench-chart.png`.
 - Key takeaways:
   - Anthropic still holds the only passing runs; Opus 4.6 remains the leader at +47.7%.
   - Pi + OpenRouter is a low-friction way to sweep third-party models without touching benchmark code.
+  - Human play mode makes it easier to validate benchmark usability and create a baseline outside autonomous runs.
   - Need stderr capture for OpenRouter runs to diagnose crashes like Kimi's.
 
 ## Overall status
