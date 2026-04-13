@@ -47,6 +47,21 @@ Benchmark-as-skill framework — each benchmark is a self-contained `SKILL.md` +
   - mark invalid runs in scoring
   - bake benchmark integrity rules into all future skills by default
 
+### 13 Apr 2026 — Pi + OpenRouter model sweep (GLM 5.1, Kimi K2.5)
+- Reconfigured the Pi coding agent to route through **OpenRouter** instead of the local vLLM server; added `z-ai/glm-5.1` and `moonshotai/kimi-k2.5-0127` to `~/.pi/agent/models.json`.
+- Ran `maze-bench` against both models via the Pi harness:
+  - **GLM 5.1** — 548 steps, 4 resets, ended 60 steps from the exit. Failed (-49.2%), but the strongest non-Anthropic run so far.
+  - **Kimi K2.5** — crashed mid-run at 37 steps (-99.2%). No stderr captured.
+- Reworked `visualize_maze_bench.py` for the leaderboard chart:
+  - Per-model brand-colored bars (Anthropic / OpenAI / Google / Moonshot / Z.ai).
+  - Model logo + model/agent name stacked below each column.
+  - Integer efficiency label rendered inside each bar.
+- Chart snapshot: `agents/evidence/13042026-maze-bench-chart.png`.
+- Key takeaways:
+  - Anthropic still holds the only passing runs; Opus 4.6 remains the leader at +47.7%.
+  - Pi + OpenRouter is a low-friction way to sweep third-party models without touching benchmark code.
+  - Need stderr capture for OpenRouter runs to diagnose crashes like Kimi's.
+
 ## Overall status
 - The project now has a working benchmark pattern:
   - skill tutorial
@@ -58,3 +73,4 @@ Benchmark-as-skill framework — each benchmark is a self-contained `SKILL.md` +
 - `07042026.md`
 - `08042026.md`
 - `09042026.md`
+- `13042026.md`
