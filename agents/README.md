@@ -1,6 +1,6 @@
 # agent-bench
 
-Benchmark-as-skill framework — each benchmark is a self-contained `SKILL.md` + code. The current benchmark is `maze-bench`, a first-person 3D navigation task driven by rendered PNG views and scored against the optimal path.
+Benchmark-as-skill framework — each benchmark is a self-contained `SKILL.md` + code. Current benchmarks are `maze-bench`, a first-person 3D navigation task driven by rendered PNG views and scored against the optimal path, and `island-bench`, a fragmented-information multi-agent coordination task.
 
 ## Worklog report
 
@@ -47,14 +47,34 @@ Benchmark-as-skill framework — each benchmark is a self-contained `SKILL.md` +
   - mark invalid runs in scoring
   - bake benchmark integrity rules into all future skills by default
 
+### 14 Apr 2026 — island-bench multi-agent benchmark
+- Added **island-bench** as the second `agent-bench` task.
+- The benchmark is designed for **3 separate agent sessions** with locked roles:
+  - **Cartographer** — sees full topology
+  - **Scavenger** — moves, collects resources, assembles, and triggers the beacon
+  - **Engineer** — sees the beacon blueprint and required items
+- Core benchmark idea:
+  - each role has incomplete information
+  - agents must coordinate through a shared `walkie-talkie.md`
+  - success requires combining map knowledge, local sensing, and blueprint knowledge
+- Shipped the full benchmark package:
+  - human-facing benchmark docs in `benchmarks/island-bench/README.md`
+  - a dedicated 3-window launch guide in `benchmarks/island-bench/RUN_3_WINDOWS.md`
+  - agent-facing tutorial in `benchmarks/island-bench/skills/island-escape/SKILL.md`
+  - benchmark engine, scoring, and communication helpers
+- Also carried forward the benchmark-integrity rule from maze-bench by explicitly forbidding source/state inspection.
+- Main takeaway: `agent-bench` now tests not just single-agent navigation, but **multi-role coordination under fragmented information**.
+
 ## Overall status
 - The project now has a working benchmark pattern:
   - skill tutorial
   - executable environment
   - objective scoring
+- The benchmark family has expanded from a **single-agent navigation** task (`maze-bench`) to a **multi-agent coordination** task (`island-bench`).
 - The main lesson from the logs is that benchmark integrity matters as much as benchmark mechanics; the skill must tightly constrain what information the agent is allowed to use.
 
 ## Work log files
 - `07042026.md`
 - `08042026.md`
 - `09042026.md`
+- `14042026.md`
